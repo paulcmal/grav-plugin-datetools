@@ -58,13 +58,6 @@ class DateTools extends Carbon
         // initialize common dates
         $this->initCommonDates();
     }
-    
-    /**
-     * Copy config on clone
-     */    
-    public function __clone() {
-        $this->config = clone $this->config;
-    }
 
     /**
      * Initialize common dates
@@ -75,11 +68,9 @@ class DateTools extends Carbon
     {
         $this->today         = $this->copy()->format($this->dateFormat);
         //TODO fix today and tomorrow()
-        //$this->tomorrow = $test->tomorrow()->format($test->dateFormat);
         //$this->tomorrow      = $this->copy()->tomorrow()->format($this->dateFormat);
         //$this->yesterday     = $this->copy()->yesterday()->format($this->dateFormat);
         $this->startOfWeek   = $this->copy()->startOfWeek()->format($this->dateFormat);
-        //$this->endOfWeek = $this->copy()->endOfWeek();
         //$this->endOfWeek     = $this->copy()->endOfWeek()->format($this->dateFormat);
         $this->startOfMonth  = $this->copy()->startOfMonth()->format($this->dateFormat);
         $this->endOfMonth    = $this->copy()->endOfMonth()->format($this->dateFormat);
@@ -106,48 +97,6 @@ class DateTools extends Carbon
         return clone $this;
     }
     
-    // Begin endless wrappers to reinitialize the variables
-    
-    /*public function addDay($value = 1) {
-        return $this->addDays($value);
-    }
-    
-    public function addDays($value = 1) {
-        parent::addDays($value);
-        $this->initCommonDates();
-        return $this;
-    }
-    
-    public function addWeek($value = 1) {
-        return $this->addWeeks($value);
-    }
-    
-    public function addWeeks($value = 1) {
-        parent::addWeeks($value);
-        $this->initCommonDates();
-        return $this;
-    }
-    
-    public function addMonth($value = 1) {
-        return $this->addMonths($value);
-    }
-    
-    public function addMonths($value = 1) {
-        parent::addMonths($value);
-        $this->initCommonDates();
-        return $this;
-    }
-    
-    public function addYear($value = 1) {
-        return $this->addYears($value);
-    }
-    
-    public function addYears($value = 1) {
-        parent::addYears($value);
-        $this->initCommontDates();
-        return $this;
-    }*/
-    
     public function modify($modify) {
         $instance = parent::modify($modify);
         $this->initCommonDates();
@@ -171,10 +120,6 @@ class DateTools extends Carbon
     {
         return $this->addDay();
     }
-    
-    public function yesterday() {
-        return $this->addDay(-1);
-    }*/
 
     /**
      * Get yesterday's date
