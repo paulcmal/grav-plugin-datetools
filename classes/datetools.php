@@ -1,7 +1,7 @@
 <?php
 
 // TODO :
-// - reimplement tomorrow, yesterday and endOfWeek as they seem to be broken
+// - reimplement endOfWeek 
 
 namespace Grav\Plugin;
 
@@ -67,9 +67,9 @@ class DateTools extends Carbon
     private function initCommonDates()
     {
         $this->today         = $this->copy()->format($this->dateFormat);
-        //TODO fix today and tomorrow()
-        //$this->tomorrow      = $this->copy()->tomorrow()->format($this->dateFormat);
-        //$this->yesterday     = $this->copy()->yesterday()->format($this->dateFormat);
+        // Had to change method names for yesterday() and tomorrow(), see below.
+        $this->tomorrow      = $this->copy()->next_day()->format($this->dateFormat);
+        $this->yesterday     = $this->copy()->previous_day()->format($this->dateFormat);
         $this->startOfWeek   = $this->copy()->startOfWeek()->format($this->dateFormat);
         //$this->endOfWeek     = $this->copy()->endOfWeek()->format($this->dateFormat);
         $this->startOfMonth  = $this->copy()->startOfMonth()->format($this->dateFormat);
@@ -110,24 +110,28 @@ class DateTools extends Carbon
         return $instance;
     }*/
     
+    // Method names for yesterday() and tomorrow() had to be changed as they were static
+    // So now we can have a value relative to the datetools instance (expected behaviour with initCommonDates)
+    // Methods tomorrow() and yesterday() still exist as static method, returning time relative to now.
+    // This should ensure backwards-compatibility.
 
     /**
      * Get tomorrow's date
      * 
      * @return string DateTime
      */
-    /*public function tomorrow()
+    public function next_day()
     {
         return $this->addDay();
     }
 
-    /**
-     * Get yesterday's date
+    
+    /* Get yesterday's date
      * 
      * @return string DateTime
      */
-    /*public function yesterday()
+    public function previous_day()
     {
         return $this->subDay();
-    }*/
+    }
 }
